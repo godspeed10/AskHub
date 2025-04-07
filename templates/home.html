@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+    <div class="text-center">
+        <h1 class="mb-4">Welcome to AskHub</h1>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg mx-3 px-5">Register</a>
+        <a href="{% url 'login' %}" class="btn btn-success btn-lg mx-3 px-5">Login</a>
+    </div>
+</div>
+{% endblock %}
