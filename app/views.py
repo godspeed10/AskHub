@@ -20,8 +20,8 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # auto-login after register
-            return redirect('login')  # Change as needed
+            login(request, user)  
+            return redirect('login') 
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
@@ -31,7 +31,7 @@ class LoginView(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
-        return '/app/dashboard/'  # or use reverse('question_list')
+        return '/app/dashboard/' 
     
 
 
@@ -95,60 +95,3 @@ def add_reply(request, answer_id):
         form = ReplyForm()
     return render(request, 'add_reply.html', {'form': form, 'answer': answer})
 
-
-
-# {% extends 'base.html' %}
-# {% block content %}
-# <div class="container mt-5">
-#     <h2 class="text-center mb-4">📋 Questions Feed</h2>
-
-#     <div class="text-end mb-3">
-#         <a href="{% url 'add_question' %}" class="btn btn-success">+ Ask a Question</a>
-#     </div>
-
-#     {% for question in questions %}
-#         <div class="card mb-4 shadow-sm">
-#             <div class="card-header bg-primary text-white">
-#                 <strong>{{ question.title }}</strong><br>
-#                 <small>Asked by {{ question.created_by.username }} on {{ question.created_at|date:"M d, Y" }}</small>
-#             </div>
-#             <div class="card-body">
-#                 <p>{{ question.description }}</p>
-
-#                 <hr>
-#                 <h5>💬 Answers:</h5>
-
-#                 {% for answer in question.answers.all %}
-#                     <div class="border p-3 mb-3 rounded">
-#                         <p>{{ answer.content }}</p>
-#                         <small>— {{ answer.created_by.username }}</small>
-
-#                         <div class="d-flex align-items-center gap-2 mt-2">
-#                             <form method="post" action="{% url 'like_answer' answer.id %}">
-#                                 {% csrf_token %}
-#                                 <button class="btn btn-sm btn-outline-primary">👍 Like ({{ answer.total_likes }})</button>
-#                             </form>
-#                             <a href="{% url 'add_reply' answer.id %}" class="btn btn-sm btn-outline-secondary">↩️ Reply</a>
-#                         </div>
-
-#                         {% for reply in answer.replies.all %}
-#                             <div class="mt-3 ms-4 border-start ps-3 text-muted">
-#                                 <p class="mb-1">{{ reply.content }}</p>
-#                                 <small>— {{ reply.created_by.username }}</small>
-#                             </div>
-#                         {% empty %}
-#                             <div class="ms-4 mt-2 text-muted">No replies yet.</div>
-#                         {% endfor %}
-#                     </div>
-#                 {% empty %}
-#                     <p class="text-muted">No answers yet.</p>
-#                 {% endfor %}
-
-#                 <a href="{% url 'add_answer' question.id %}" class="btn btn-outline-secondary mt-2">➕ Answer This</a>
-#             </div>
-#         </div>
-#     {% empty %}
-#         <p>No questions found.</p>
-#     {% endfor %}
-# </div>
-# {% endblock %}
